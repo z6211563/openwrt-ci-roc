@@ -15,7 +15,7 @@ env:
   MADS: false
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
-  FIRMWARE_TAG: RAX3000M
+  FIRMWARE_TAG: RAX3000M&K2P
   TZ: Asia/Shanghai
 
 jobs:
@@ -180,7 +180,7 @@ jobs:
         body: |
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
           ### 📒 固件信息
-          - 这是CMCC RAX3000M NAND version (custom U-Boot layout)的5.15内核固件，默认主题为Argon；该固件在ImmortalWrt的基础上，添加了额外的软件包ddns、ttyd、upnp、wolplus、samba4、vlmcsd、aria2、autoreboot、uhttpd、wifischedule、frps、frpc、diskman、hd-idle、banip、acme、arpbind、usb-printer、homeproxy、fileassistant、oaf、sqm、wireguard、watchcat、3cat，并添加了若干工具，具体详见RAX3000M.config。
+          - 这是CMCC RAX3000M NAND version (custom U-Boot layout)&K2P的5.15内核固件，默认主题为Argon；该固件在ImmortalWrt的基础上，添加了额外的软件包ddns、ttyd、upnp、wolplus、samba4、vlmcsd、aria2、autoreboot、uhttpd、wifischedule、frps、frpc、diskman、hd-idle、banip、acme、arpbind、usb-printer、homeproxy、fileassistant、oaf、sqm、wireguard、watchcat、3cat（**K2P**仅包含ttyd、autoreboot、uhttpd、wifischedule），并添加了若干工具，具体详见对应机型的config。
           - 💻 这是 ${{ env.FIRMWARE_TAG }} 平台使用的 OpenWrt 固件
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
