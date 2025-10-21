@@ -64,13 +64,9 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
-# Go & OpenList & Sing-Box & ariang & frp & AdGuardHome & WolPlus & Lucky & wechatpush & OpenAppFilter & 集客无线AC控制器 & 雅典娜LED控制
+# Go & OpenList & ariang & frp & AdGuardHome & WolPlus & Lucky & wechatpush & OpenAppFilter & 集客无线AC控制器 & 雅典娜LED控制
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/luci-app-openlist2 package/openlist
-git_sparse_clone openwrt-23.05 https://github.com/immortalwrt/packages net/sing-box
-mv -f package/sing-box feeds/packages/net/sing-box
-git_sparse_clone openwrt-23.05 https://github.com/immortalwrt/luci applications/luci-app-homeproxy
-mv -f package/luci-app-homeproxy feeds/luci/applications/luci-app-homeproxy
 git_sparse_clone ariang https://github.com/laipeng668/packages net/ariang
 git_sparse_clone frp https://github.com/laipeng668/packages net/frp
 mv -f package/frp feeds/packages/net/frp
