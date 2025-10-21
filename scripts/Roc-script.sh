@@ -44,12 +44,10 @@ sed -i '/^\.td\.cbi-section-actions {$/,/^}$/ {
 # 移除要替换的包
 rm -rf feeds/luci/applications/luci-app-wechatpush
 rm -rf feeds/luci/applications/luci-app-appfilter
-rm -rf feeds/luci/applications/luci-app-homeproxy
 rm -rf feeds/luci/applications/luci-app-frpc
 rm -rf feeds/luci/applications/luci-app-frps
 rm -rf feeds/packages/net/open-app-filter
 rm -rf feeds/packages/net/adguardhome
-rm -rf feeds/packages/net/sing-box
 rm -rf feeds/packages/net/ariang
 rm -rf feeds/packages/net/frp
 rm -rf feeds/packages/lang/golang
