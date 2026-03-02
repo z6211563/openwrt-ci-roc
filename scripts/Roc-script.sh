@@ -52,7 +52,7 @@ function git_sparse_clone() {
 git_sparse_clone ariang https://github.com/laipeng668/packages net/ariang
 git_sparse_clone master https://github.com/laipeng668/packages lang/golang
 mv -f package/golang feeds/packages/lang/golang
-git_sparse_clone frp https://github.com/laipeng668/packages net/frp
+git_sparse_clone frp-binary https://github.com/laipeng668/packages net/frp
 mv -f package/frp feeds/packages/net/frp
 git_sparse_clone frp https://github.com/laipeng668/luci applications/luci-app-frpc applications/luci-app-frps
 mv -f package/luci-app-frpc feeds/luci/applications/luci-app-frpc
