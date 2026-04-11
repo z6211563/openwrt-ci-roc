@@ -3,8 +3,8 @@ name: JDCloud-NoWiFi-ImmortalWrt
 on:
   workflow_dispatch:
   workflow_call:
-   schedule:
-    - cron: 0 20 * * 4  # 北京时间星期六凌晨4点，定时触发
+  schedule:
+    - cron: 0 20 * * 4
 
 env:
   REPO_URL: https://github.com/laipeng668/immortalwrt.git
