@@ -56,9 +56,9 @@ git_sparse_clone ariang https://github.com/laipeng668/packages net/ariang
 mv -f package/ariang feeds/packages/net/ariang
 git_sparse_clone master https://github.com/laipeng668/packages lang/golang
 mv -f package/golang feeds/packages/lang/golang
-git_sparse_clone frp-binary https://github.com/laipeng668/packages net/frp
+git_sparse_clone frp-binary-toml https://github.com/laipeng668/packages net/frp
 mv -f package/frp feeds/packages/net/frp
-git_sparse_clone frp https://github.com/laipeng668/luci applications/luci-app-frpc applications/luci-app-frps
+git_sparse_clone frp-toml https://github.com/laipeng668/luci applications/luci-app-frpc applications/luci-app-frps
 mv -f package/luci-app-frpc feeds/luci/applications/luci-app-frpc
 mv -f package/luci-app-frps feeds/luci/applications/luci-app-frps
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon feeds/luci/themes/luci-theme-argon
