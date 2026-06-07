@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "0 18 * * 5"
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
 
     IPQ60XX-LibWrt:
