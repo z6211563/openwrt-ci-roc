@@ -8,7 +8,7 @@
 - **本固件禁止用于任何商业用途，请务必严格遵守国家互联网使用相关法律规定！**
 
 ## 项目说明
-- 默认管理地址：**`192.168.2.1`** 默认用户：**`root`** 默认密码：**`none`**
+- 默认管理地址：**`192.168.2.1`**，默认用户：**`root`**，默认密码：**`无`**
 - [云编译来源](https://github.com/haiibo/OpenWrt) [视频教程](https://www.youtube.com/watch?v=6j4ofS0GT38) [问题合集](https://github.com/LiBwrt/openwrt-6.x/issues)
 
 ## 仓库说明
@@ -25,5 +25,6 @@
 - 添加或修改 `xx.yml` 文件，最后点击 `Actions` 运行要编译的 `workflow` 即可开始编译。
 - 编译大概需要 1-2 小时，编译完成后在仓库主页 [Releases](https://github.com/laipeng668/openwrt-ci-roc/releases) 对应 Tag 标签内下载固件。
 
-![Overview](Overview.png)
-![Global](Global.png)
+## 页面预览
+![Homepage](Homepage.png)
+</div>
