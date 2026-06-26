@@ -25,3 +25,6 @@ jobs:
 
     x86-64-ImmortalWrt:
       uses: ./.github/workflows/x86-64-ImmortalWrt.yml
+
+    Build-Packages:
+      uses: ./.github/workflows/Build-Packages.yml
