@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       sdk_version:
-        description: 可选：OpenWrt SDK 版本，ALL 表示全部版本，稳定版自动使用对应系列最新版本，main 使用主线 snapshots。
+        description: 可选：OpenWrt SDK 版本，ALL 表示全部版本，main 使用主线 snapshots，稳定版自动使用对应系列最新版本。
         required: false
         default: main
         type: choice
@@ -30,15 +30,13 @@ on:
         type: choice
         options:
           - ALL
-          - aria2
-          - ariang
-          - frp
           - nginx
-          - gecoosac
           - luci-app-aria2
           - luci-app-frpc
           - luci-app-frps
           - luci-app-gecoosac
+          - luci-app-openlist2
+          - luci-theme-aurora
   workflow_call:
     inputs:
       sdk_version:
@@ -55,7 +53,8 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
+  actions: read
 
 defaults:
   run:
@@ -76,6 +75,7 @@ jobs:
       id: matrix
       env:
         SELECTED_ARCH: ${{ inputs.arch }}
+        SELECTED_PACKAGE: ${{ inputs.package }}
         SELECTED_SDK_VERSION: ${{ inputs.sdk_version }}
       run: |
         python3 - <<'PY' >> "$GITHUB_OUTPUT"
@@ -83,6 +83,7 @@ jobs:
         import os
 
         selected_arch = os.environ["SELECTED_ARCH"]
+        selected_package = os.environ["SELECTED_PACKAGE"].lower()
         selected_sdk_version = os.environ["SELECTED_SDK_VERSION"]
 
         sdk_versions = ["main", "25.12", "24.10", "23.05"]
@@ -95,7 +96,9 @@ jobs:
         else:
             raise SystemExit(f"Unsupported sdk_version: {selected_sdk_version}")
 
-        if selected_arch == "ALL":
+        if selected_arch == "ALL" and selected_package == "luci-theme-aurora":
+            selected_architectures = ["x86-64"]
+        elif selected_arch == "ALL":
             selected_architectures = architectures
         elif selected_arch in architectures:
             selected_architectures = [selected_arch]
@@ -182,6 +185,7 @@ jobs:
           gettext \
           git \
           libelf-dev \
+          libfuse-dev \
           libncurses-dev \
           libssl-dev \
           python3 \
@@ -191,12 +195,15 @@ jobs:
           unzip \
           wget \
           xz-utils \
+          zip \
           zlib1g-dev \
           zstd
         sudo timedatectl set-timezone "$TZ"
 
     - name: Checkout(检出代码)
       uses: actions/checkout@v4
+      with:
+        persist-credentials: false
 
     - name: Build Packages With OpenWrt SDK(使用OpenWrt SDK编译软件包)
       env:
@@ -205,6 +212,7 @@ jobs:
         OPENWRT_TARGET_PROFILE: ${{ matrix.openwrt_target_profile }}
         PACKAGE_CONFIG_FILES: ${{ matrix.config_files }}
         PACKAGE_ARCH_NAME: ${{ matrix.name }}
+        PACKAGE_SELECTED_ARCH: ${{ inputs.arch }}
         PACKAGE_SELECTION: ${{ inputs.package }}
         OPENWRT_SDK_VERSION: ${{ matrix.sdk_version }}
       run: |
@@ -222,6 +230,9 @@ jobs:
     runs-on: ubuntu-24.04
     needs: Build
     if: ${{ !cancelled() && needs.Build.result == 'success' }}
+    permissions:
+      contents: write
+      actions: read
 
     steps:
     - name: Download Packages Artifacts(下载软件包产物)
@@ -249,5 +260,5 @@ jobs:
           - 选择的架构：${{ inputs.arch }}
           - 选择的 SDK：${{ inputs.sdk_version }}
           - 选择的软件包：${{ inputs.package }}
-          - 源码来源：[laipeng668/packages](https://github.com/laipeng668/packages)（aria2、ariang、frp-binary-toml、nginx分支）、[laipeng668/luci](https://github.com/laipeng668/luci)（frp-toml分支）、[laipeng668/luci-app-gecoosac](https://github.com/laipeng668/luci-app-gecoosac)（main分支）
-          - 安装说明：`apk` 软件包安装命令 `apk add --allow-untrusted *`
+          - 源码来源：[laipeng668/packages](https://github.com/laipeng668/packages)（aria2、ariang、frp-binary-toml、nginx分支）、[laipeng668/luci](https://github.com/laipeng668/luci)（frp-toml分支）、[laipeng668/luci-app-gecoosac](https://github.com/laipeng668/luci-app-gecoosac)、[laipeng668/luci-app-openlist2](https://github.com/laipeng668/luci-app-openlist2)、[eamonxg/luci-theme-aurora](https://github.com/eamonxg/luci-theme-aurora)、[eamonxg/luci-app-aurora-config](https://github.com/eamonxg/luci-app-aurora-config)
+          - 说明：Release 附件按 `<SDK>-<软件包>-<架构>.zip` 分组，普通分组内的 `.apk/.ipk` 文件也使用对应架构后缀；`luci-theme-aurora` 使用 `all` 架构后缀，`arch=ALL` 时也只保留一份。下载后先解压，`apk` 软件包使用 `apk add --allow-untrusted *.apk` 安装，`ipk` 软件包使用 `opkg install *.ipk` 安装。
