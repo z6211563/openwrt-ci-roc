@@ -33,12 +33,14 @@ sed -i "s#_('Firmware Version'), (L\.isObject(boardinfo\.release) ? boardinfo\.r
 rm -rf feeds/luci/applications/luci-app-argon-config
 rm -rf feeds/luci/applications/luci-app-wechatpush
 rm -rf feeds/luci/applications/luci-app-appfilter
+rm -rf feeds/luci/applications/luci-app-ddns
 rm -rf feeds/luci/applications/luci-app-frpc
 rm -rf feeds/luci/applications/luci-app-frps
 rm -rf feeds/luci/applications/luci-app-upnp
 rm -rf feeds/luci/applications/luci-app-wol
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/packages/net/open-app-filter
+rm -rf feeds/packages/net/ddns-scripts
 rm -rf feeds/packages/net/miniupnpd
 rm -rf feeds/packages/net/ariang
 rm -rf feeds/packages/net/aria2
@@ -64,7 +66,7 @@ function git_sparse_clone() {
   rm -rf "$repodir"
 }
 
-# Aria2 & nginx & Go & frp & UPnP & Wol & Argon & Aurora & OpenList & Lucky & wechatpush & OpenAppFilter & 集客无线AC控制器 & 雅典娜LED控制
+# Aria2 & nginx & Go & DDNS & frp & UPnP & Wol & Argon & Aurora & OpenList & Lucky & wechatpush & OpenAppFilter & 集客无线AC控制器 & 雅典娜LED控制
 git_sparse_clone aria2 https://github.com/laipeng668/packages net/aria2
 mv -f package/aria2 feeds/packages/net/aria2
 git_sparse_clone nginx https://github.com/laipeng668/packages net/nginx
@@ -73,6 +75,10 @@ git_sparse_clone ariang https://github.com/laipeng668/packages net/ariang
 mv -f package/ariang feeds/packages/net/ariang
 git_sparse_clone master https://github.com/laipeng668/packages lang/golang
 mv -f package/golang feeds/packages/lang/golang
+git_sparse_clone master https://github.com/laipeng668/packages net/ddns-scripts
+mv -f package/ddns-scripts feeds/packages/net/ddns-scripts
+git_sparse_clone master https://github.com/laipeng668/luci applications/luci-app-ddns
+mv -f package/luci-app-ddns feeds/luci/applications/luci-app-ddns
 git_sparse_clone frp-binary-toml https://github.com/laipeng668/packages net/frp
 mv -f package/frp feeds/packages/net/frp
 git_sparse_clone frp-toml https://github.com/laipeng668/luci applications/luci-app-frpc applications/luci-app-frps
